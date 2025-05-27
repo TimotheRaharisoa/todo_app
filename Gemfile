@@ -37,6 +37,8 @@ gem 'kaminari', '~> 1.2', '>= 1.2.2'
 
 gem 'active_model_serializers', '~> 0.10.15'
 
+gem 'view_component', '~> 3.8'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 

@@ -18,5 +18,8 @@ module TodoApp
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Ensure serializers are autoloaded
+    config.autoload_paths += %W(#{config.root}/app/serializers)
   end
 end
