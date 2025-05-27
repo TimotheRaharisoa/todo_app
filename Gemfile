@@ -31,6 +31,8 @@ gem "tailwindcss-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+gem 'devise', '~> 4.9', '>= 4.9.2'
+
 gem 'kaminari', '~> 1.2', '>= 1.2.2'
 
 gem 'active_model_serializers', '~> 0.10.15'
@@ -62,6 +64,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 7.1', '>= 7.1.1'
   gem 'rspec', '~> 3.13'
   gem 'pry-rails', '~> 0.3.11'
+  gem 'factory_bot_rails', '~> 6.4', '>= 6.4.3'
 end
 
 group :development do
