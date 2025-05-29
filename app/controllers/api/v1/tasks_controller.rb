@@ -5,43 +5,72 @@ module Api
 
       def index
         @tasks = Task.page(params[:page]).per(params[:per_page] || 10)
-        render json: @tasks, 
-               each_serializer: Api::V1::TaskSerializer,
-               meta: pagination_meta(@tasks),
-               adapter: :json,
-               status: :ok
+        
+        respond_to do |format|
+          format.html # renders index.html.erb
+          format.json do
+            render json: @tasks,
+                   each_serializer: Api::V1::TaskSerializer,
+                   meta: pagination_meta(@tasks),
+                   status: :ok
+          end
+        end
       end
 
       def show
-        render json: @task, 
-               serializer: Api::V1::TaskSerializer,
-               status: :ok
+        respond_to do |format|
+          format.html # renders show.html.erb
+          format.json do
+            render json: @task,
+                   serializer: Api::V1::TaskSerializer,
+                   status: :ok
+          end
+        end
       end
 
       def create
         @task = Task.new(task_params)
         if @task.save!
-          render json: @task,
-                 serializer: Api::V1::TaskSerializer,
-                 status: :created
+          respond_to do |format|
+            format.html { redirect_to api_v1_task_path(@task), notice: 'Task was successfully created.' }
+            format.json do
+              render json: @task,
+                     serializer: Api::V1::TaskSerializer,
+                     status: :created
+            end
+          end
         else
-          error_response(@task.errors.full_messages)
+          respond_to do |format|
+            format.html { render :new }
+            format.json { error_response(@task.errors.full_messages) }
+          end
         end
       end
 
       def update
         if @task.update!(task_params)
-          render json: @task,
-                 serializer: Api::V1::TaskSerializer,
-                 status: :ok
+          respond_to do |format|
+            format.html { redirect_to api_v1_task_path(@task), notice: 'Task was successfully updated.' }
+            format.json do
+              render json: @task,
+                     serializer: Api::V1::TaskSerializer,
+                     status: :ok
+            end
+          end
         else
-          error_response(@task.errors.full_messages)
+          respond_to do |format|
+            format.html { render :edit }
+            format.json { error_response(@task.errors.full_messages) }
+          end
         end
       end
 
       def destroy
         @task.destroy
-        head :no_content
+        respond_to do |format|
+          format.html { redirect_to api_v1_tasks_path, notice: 'Task was successfully deleted.' }
+          format.json { head :no_content }
+        end
       end
 
       private

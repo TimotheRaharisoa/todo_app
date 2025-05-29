@@ -1,0 +1,19 @@
+<%= render CardComponent.new do |card| %>
+  <% card.with_header do %>
+    <h2 class="text-xl font-semibold text-gray-800">
+      <%= task.title %>
+    </h2>
+  <% end %>
+
+  <% card.with_body do %>
+    <% if task.description.present? %>
+      <p><%= task.description %></p>
+    <% else %>
+      <p class="italic text-gray-400">Aucune description</p>
+    <% end %>
+  <% end %>
+
+  <% card.with_footer do %>
+    <span class="<%= status_classes %> font-semibold"><%= status_text %></span>
+  <% end %>
+<% end %>
