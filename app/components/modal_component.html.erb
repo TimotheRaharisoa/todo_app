@@ -1,0 +1,28 @@
+<div id="<%= id %>" class="modal" data-controller="modal">
+  <div class="modal-backdrop"></div>
+  
+  <div class="modal-content">
+    <% if header? %>
+      <div class="modal-header">
+        <%= header %>
+      </div>
+    <% end %>
+
+    <% if body? %>
+      <div class="modal-body">
+        <%= body %>
+      </div>
+    <% end %>
+
+    <% if footer? %>
+      <div class="modal-footer">
+        <%= footer %>
+      </div>
+    <% end %>
+
+    <button class="modal-close" data-action="click->modal#close">
+      <span class="sr-only">Close</span>
+      ×
+    </button>
+  </div>
+</div>

@@ -5,5 +5,12 @@ Rails.application.routes.draw do
       resources :users
     end
   end
-  root "api/v1/tasks#index"
+
+  resources :tasks do
+    member do
+      patch :toggle_completion
+    end
+  end
+  
+  root 'tasks#index'
 end

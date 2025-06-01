@@ -1,1 +1,9 @@
-<div>Add Button template here</div>
+<% if @url.present? %>
+  <a href="<%= @url %>" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block text-center">
+    <%= @label %>
+  </a>
+<% else %>
+  <span class="bg-blue-500 text-white font-bold py-2 px-4 rounded inline-block text-center">
+    <%= @label %>
+  </span>
+<% end %>

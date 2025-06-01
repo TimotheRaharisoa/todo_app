@@ -1,19 +1,32 @@
 <%= render CardComponent.new do |card| %>
   <% card.with_header do %>
-    <h2 class="text-xl font-semibold text-gray-800">
+    <h2 class="text-base font-semibold text-gray-800 truncate">
       <%= task.title %>
     </h2>
   <% end %>
 
   <% card.with_body do %>
     <% if task.description.present? %>
-      <p><%= task.description %></p>
+      <p class="text-gray-600 line-clamp-2"><%= task.description %></p>
     <% else %>
-      <p class="italic text-gray-400">Aucune description</p>
+      <p class="italic text-gray-400 text-sm">No description</p>
     <% end %>
+    <p class="text-sm mt-2">Assignee: <%= task.user.username %></p>
   <% end %>
 
   <% card.with_footer do %>
-    <span class="<%= status_classes %> font-semibold"><%= status_text %></span>
+    <div class="flex flex-col space-y-2">
+      <div class="flex items-center justify-between text-sm">
+        <span class="text-gray-600">Due: <%= task.due_date.strftime("%Y-%m-%d") %></span>
+        <span class="<%= status_classes %> font-semibold"><%= status_text %></span>
+      </div>
+      <%= button_to toggle_completion_task_path(task), 
+          method: :patch,
+          class: "w-full px-3 py-1 text-sm rounded #{task.completed? ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-green-500 hover:bg-green-600'} text-white",
+          form: { data: { turbo: true } } do %>
+        <%= task.completed? ? '↺ Mark as Todo' : '✓ Mark as Done' %>
+      <% end %>
+    </div>
   <% end %>
 <% end %>
+
